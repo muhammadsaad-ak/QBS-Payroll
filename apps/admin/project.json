@@ -7,7 +7,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-browser",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": [
         "{options.outputPath}"
       ],
@@ -20,9 +20,6 @@
         ],
         "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "customWebpackConfig": {
-          "path": "apps/admin/webpack.config.js"
-        },
         "assets": [
           {
             "glob": "**/*",
@@ -63,6 +60,10 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4201,
+        "buildTarget": "admin:build:development"
+      },
       "configurations": {
         "production": {
           "buildTarget": "admin:build:production"
@@ -93,13 +94,12 @@
       "dependsOn": [
         "build"
       ],
-      "executor": "@nx/angular:webpack-server",
+      "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/apps/admin/server",
-        "main": "apps/admin/src/server.ts",
+        "main": "apps/admin/src/main.server.ts",
         "tsConfig": "apps/admin/tsconfig.server.json",
-        "inlineStyleLanguage": "scss",
-        "port": 4201
+        "inlineStyleLanguage": "scss"
       },
       "configurations": {
         "production": {
@@ -109,14 +109,17 @@
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
-          "extractLicenses": false,
-          "vendorChunk": true
+          "extractLicenses": false
         }
       },
       "defaultConfiguration": "production"
     },
     "serve-ssr": {
-      "executor": "@angular-devkit/build-angular:ssr-dev-server",
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "browserTarget": "admin:build:production",
+        "serverTarget": "admin:server:production"
+      },
       "configurations": {
         "development": {
           "browserTarget": "admin:build:development",

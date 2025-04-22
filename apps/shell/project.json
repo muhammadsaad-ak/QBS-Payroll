@@ -7,13 +7,17 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/shell/browser",
         "index": "apps/shell/src/index.html",
         "main": "apps/shell/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/shell/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -22,11 +26,10 @@
             "input": "apps/shell/public"
           }
         ],
-        "styles": ["apps/shell/src/styles.scss"],
-        "scripts": [],
-        "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
-        }
+        "styles": [
+          "apps/shell/src/styles.scss"
+        ],
+        "scripts": []
       },
       "configurations": {
         "production": {
@@ -57,6 +60,10 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200,
+        "buildTarget": "shell:build:development"
+      },
       "configurations": {
         "production": {
           "buildTarget": "shell:build:production"
@@ -84,14 +91,15 @@
       }
     },
     "server": {
-      "dependsOn": ["build"],
-      "executor": "@nx/angular:webpack-server",
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/apps/shell/server",
-        "main": "apps/shell/src/server.ts",
+        "main": "apps/shell/src/main.server.ts",
         "tsConfig": "apps/shell/tsconfig.server.json",
-        "inlineStyleLanguage": "scss",
-        "port": 4200
+        "inlineStyleLanguage": "scss"
       },
       "configurations": {
         "production": {
@@ -101,14 +109,17 @@
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
-          "extractLicenses": false,
-          "vendorChunk": true
+          "extractLicenses": false
         }
       },
       "defaultConfiguration": "production"
     },
     "serve-ssr": {
-      "executor": "@angular-architects/module-federation:ssr-dev-server",
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "browserTarget": "shell:build:production",
+        "serverTarget": "shell:server:production"
+      },
       "configurations": {
         "development": {
           "browserTarget": "shell:build:development",
@@ -124,7 +135,9 @@
     "prerender": {
       "executor": "@angular-devkit/build-angular:prerender",
       "options": {
-        "routes": ["/"]
+        "routes": [
+          "/"
+        ]
       },
       "configurations": {
         "development": {
