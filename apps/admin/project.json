@@ -1,32 +1,38 @@
 {
-  "name": "shell",
+  "name": "admin",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/shell/src",
+  "sourceRoot": "apps/admin/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/shell/browser",
-        "index": "apps/shell/src/index.html",
-        "main": "apps/shell/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/shell/tsconfig.app.json",
+        "outputPath": "dist/apps/admin/browser",
+        "index": "apps/admin/src/index.html",
+        "main": "apps/admin/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "customWebpackConfig": {
+          "path": "apps/admin/webpack.config.js"
+        },
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/shell/public"
+            "input": "apps/admin/public"
           }
         ],
-        "styles": ["apps/shell/src/styles.scss"],
-        "scripts": [],
-        "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
-        }
+        "styles": [
+          "apps/admin/src/styles.scss"
+        ],
+        "scripts": []
       },
       "configurations": {
         "production": {
@@ -59,10 +65,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "shell:build:production"
+          "buildTarget": "admin:build:production"
         },
         "development": {
-          "buildTarget": "shell:build:development"
+          "buildTarget": "admin:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,7 +76,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "shell:build"
+        "buildTarget": "admin:build"
       }
     },
     "lint": {
@@ -79,19 +85,21 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "shell:build",
+        "buildTarget": "admin:build",
         "spa": true
       }
     },
     "server": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "executor": "@nx/angular:webpack-server",
       "options": {
-        "outputPath": "dist/apps/shell/server",
-        "main": "apps/shell/src/server.ts",
-        "tsConfig": "apps/shell/tsconfig.server.json",
+        "outputPath": "dist/apps/admin/server",
+        "main": "apps/admin/src/server.ts",
+        "tsConfig": "apps/admin/tsconfig.server.json",
         "inlineStyleLanguage": "scss",
-        "port": 4200
+        "port": 4201
       },
       "configurations": {
         "production": {
@@ -108,15 +116,15 @@
       "defaultConfiguration": "production"
     },
     "serve-ssr": {
-      "executor": "@angular-architects/module-federation:ssr-dev-server",
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
       "configurations": {
         "development": {
-          "browserTarget": "shell:build:development",
-          "serverTarget": "shell:server:development"
+          "browserTarget": "admin:build:development",
+          "serverTarget": "admin:server:development"
         },
         "production": {
-          "browserTarget": "shell:build:production",
-          "serverTarget": "shell:server:production"
+          "browserTarget": "admin:build:production",
+          "serverTarget": "admin:server:production"
         }
       },
       "defaultConfiguration": "development"
@@ -124,16 +132,18 @@
     "prerender": {
       "executor": "@angular-devkit/build-angular:prerender",
       "options": {
-        "routes": ["/"]
+        "routes": [
+          "/"
+        ]
       },
       "configurations": {
         "development": {
-          "browserTarget": "shell:build:development",
-          "serverTarget": "shell:server:development"
+          "browserTarget": "admin:build:development",
+          "serverTarget": "admin:server:development"
         },
         "production": {
-          "browserTarget": "shell:build:production",
-          "serverTarget": "shell:server:production"
+          "browserTarget": "admin:build:production",
+          "serverTarget": "admin:server:production"
         }
       },
       "defaultConfiguration": "production"

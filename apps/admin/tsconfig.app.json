@@ -8,7 +8,9 @@
     "src/main.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/app/remote-entry/**/*.ts" // Add this line
   ],
   "exclude": [
     "jest.config.ts",

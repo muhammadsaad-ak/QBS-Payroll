@@ -1,4 +1,3 @@
-import { CustomResourceLoader } from '@nguniversal/common/clover/server/src/custom-resource-loader';
 import { createFetch } from '@angular-architects/module-federation/nguniversal';
 import 'zone.js/node';
 
@@ -12,7 +11,7 @@ import bootstrap from './main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/apps/shell/browser');
+  const distFolder = join(process.cwd(), 'dist/apps/admin/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? join(distFolder, 'index.original.html')
     : join(distFolder, 'index.html');
