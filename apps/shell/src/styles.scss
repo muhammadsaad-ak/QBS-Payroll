@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #026464;
+  --secondary-color: #F6F7F8;
+}
+
+// Typography
+h1 {
+  @apply text-4xl font-semibold text-primary;
+}
+
+h2 {
+  @apply text-3xl font-semibold text-primary;
+}
+
+h3 {
+  @apply text-2xl font-semibold text-primary;
+}
+
+h4 {
+  @apply text-xl font-semibold text-primary;
+}
+
+h5, h6 {
+  @apply text-sm font-semibold text-primary;
+}
+
+p {
+  @apply text-sm leading-relaxed text-gray-700;
+}
