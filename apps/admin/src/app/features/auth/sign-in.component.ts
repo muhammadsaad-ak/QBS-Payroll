@@ -7,7 +7,7 @@ import { Router } from '@angular/router'; // Import the Router
   standalone: true,
   imports: [CommonModule], // Add FormsModule or ReactiveFormsModule later for real forms
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
 
