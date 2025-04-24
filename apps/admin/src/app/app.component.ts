@@ -4,8 +4,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   imports: [ RouterModule],
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'admin';

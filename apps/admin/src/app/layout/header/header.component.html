@@ -1,5 +1,31 @@
-<header class="admin-header">
-  <div class="header-content">
-    <h1>Dashboard</h1>
+<!-- header.component.html -->
+<header class="admin-header bg-gray-100 border-b border-gray-300 flex items-center justify-between px-4 py-2">
+  <!-- Left: Language Dropdown -->
+  <div class="flex items-center">
+    <select class="border border-gray-300 rounded px-2 py-1 text-gray-700 focus:outline-none">
+      <option>Select Language</option>
+      <option>English</option>
+      <option>Spanish</option>
+      <!-- Add more languages as needed -->
+    </select>
   </div>
-</header> 
+
+  <!-- Right: Icons and Logout -->
+  <div class="flex items-center space-x-4">
+    <!-- Icons (placeholders, replace with actual icons) -->
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons">notifications</span>
+    </button>
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons">settings</span>
+    </button>
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons">help</span>
+    </button>
+    <!-- Logout Button -->
+    <button class="flex items-center text-red-500 hover:text-red-700">
+      <span class="material-icons mr-1">logout</span>
+      Log out
+    </button>
+  </div>
+</header>

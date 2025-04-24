@@ -9,6 +9,5 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {} 

@@ -1,7 +1,363 @@
-<nav class="admin-sidebar">
-  <ul class="sidebar-menu">
-    <li><a routerLink="/company">Company Management</a></li>
-    <li><a routerLink="/organization">Organization</a></li>
-    <li><a routerLink="/grade">Grade Management</a></li>
-  </ul>
-</nav> 
+<!-- sidebar.component.html -->
+<nav
+  class="admin-sidebar bg-primary text-white h-screen flex flex-col transition-all duration-300"
+  [ngClass]="isCollapsed ? 'w-[56px]' : 'w-[280px]'"
+>
+  <!-- Toggle Button -->
+  <div class="p-3 flex justify-between items-center">
+    <img
+      *ngIf="!isCollapsed"
+      src="assets/QBS-logo.png"
+      alt="Logo"
+      class="h-8"
+    />
+    <button
+      (click)="toggleSidebar()"
+      class="text-white hover:text-gray-300"
+    >
+      <img
+        src="assets/chevron-left.svg"
+        alt="Toggle Sidebar"
+        class="h-5 w-5 transition-transform duration-300"
+        [ngClass]="isCollapsed ? 'rotate-180' : ''"
+      />
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="px-3 mb-3" *ngIf="!isCollapsed">
+    <input
+      type="text"
+      placeholder="Search"
+      class="w-full p-2 rounded bg-white text-gray-700 placeholder-gray-400 focus:outline-none text-p"
+    />
+  </div>
+
+  <!-- Main Menu or Submenu -->
+  <div class="px-3 mb-4 font-inter flex-1 overflow-y-auto custom-scrollbar">
+    <!-- Main Menu View -->
+    <div *ngIf="currentView === 'main'">
+      <h3
+        class="text-p font-normal text-gray-300 uppercase tracking-wider mb-3"
+        *ngIf="!isCollapsed"
+      >
+        Main Menu
+      </h3>
+      <ul class="sidebar-menu space-y-1">
+        <!-- Company Setup -->
+        <li>
+          <div
+            class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            [ngClass]="isCompanySetupActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
+            (click)="showCompanySetup()"
+            routerLinkActive="bg-white text-primary"
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
+            <div class="flex items-center">
+              <img
+                [src]="isCompanySetupActive() ? 'assets/house-active.svg' : 'assets/house.svg'"
+                alt="Home Icon"
+                class="h-5 w-5 mr-2"
+              />
+              <span *ngIf="!isCollapsed">Company Setup</span>
+            </div>
+          </div>
+        </li>
+
+        <!-- Position -->
+        <li>
+          <div
+            class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            [ngClass]="isPositionActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
+            (click)="showPosition()"
+            routerLinkActive="bg-white text-primary"
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
+            <div class="flex items-center">
+              <img
+                [src]="isPositionActive() ? 'assets/people-active.svg' : 'assets/people.svg'"
+                alt="People Icon"
+                class="h-5 w-5 mr-2"
+              />
+              <span *ngIf="!isCollapsed">Position</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Company Setup Submenu View -->
+    <div *ngIf="currentView === 'companySetup' && !isCollapsed">
+      <div class="flex items-center mb-3">
+        <button
+          (click)="showMainMenu()"
+          class="text-white hover:text-gray-300 mr-2"
+        >
+          <img
+            src="assets/chevron-left.svg"
+            alt="Back to Main Menu"
+            class="h-5 w-5"
+          />
+        </button>
+        <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
+          Company Setup
+        </h3>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            routerLink="/company/department"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Department
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/company/division"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Division
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Position Submenu View -->
+    <div *ngIf="currentView === 'position' && !isCollapsed">
+      <div class="flex items-center mb-3">
+        <button
+          (click)="showMainMenu()"
+          class="text-white hover:text-gray-300 mr-2"
+        >
+          <img
+            src="assets/chevron-left.svg"
+            alt="Back to Main Menu"
+            class="h-5 w-5"
+          />
+        </button>
+        <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
+          Position
+        </h3>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            routerLink="/organization/grade"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Grade
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/grade-level"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Grade Level
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/location"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Location
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/cost-center"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Cost Center
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/position-type"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Position Type
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/position-status"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Position Status
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/employment-type"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Employment Type
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/employment-group"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Employment Group
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/grade-assessment"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Grade Assessment
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/job"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Job
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/organization/function"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="bg-white text-primary"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Function
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Settings and Notifications -->
+  <div class="px-3 pb-3 font-inter">
+    <ul class="space-y-1">
+      <li>
+        <a
+          routerLink="/settings"
+          class="flex items-center p-2 rounded hover:bg-teal-700 transition-colors text-p"
+          routerLinkActive="bg-white text-primary"
+        >
+          <img
+            src="assets/settings.svg"
+            alt="Settings Icon"
+            class="h-5 w-5 mr-2"
+          />
+          <span *ngIf="!isCollapsed">Settings</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/notifications"
+          class="flex items-center p-2 rounded hover:bg-teal-700 transition-colors text-p"
+          routerLinkActive="bg-white text-primary"
+        >
+          <img
+            src="assets/notifications.svg"
+            alt="Notifications Icon"
+            class="h-5 w-5 mr-2"
+          />
+          <span *ngIf="!isCollapsed">Notification</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- User Profile -->
+  <div class="px-3 pb-3 border-t border-gray-600">
+    <div class="flex items-center p-2">
+      <img
+        *ngIf="!isCollapsed"
+        src="assets/avatar.png"
+        alt="User Avatar"
+        class="h-10 w-10 rounded-full mr-2 border-2 border-white"
+      />
+      <span *ngIf="!isCollapsed" class="text-p">Muhammad Ali</span>
+      <span class="ml-auto">
+        <span class="inline-block h-4 w-4 rounded-full bg-green-400"></span>
+      </span>
+    </div>
+  </div>
+</nav>
