@@ -1,0 +1,89 @@
+<div class="flex h-screen overflow-hidden font-sans">
+
+    <div class="relative hidden w-3/5 lg:block">
+      <img
+        class="absolute inset-0 object-cover w-full h-full"
+        src="assets/login-main-banner.png"
+        alt="Office background"
+      />
+      <div
+        class="absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-b from-black/30 via-transparent to-black/50"
+      >
+        <div>
+          <img src="assets/QBS-logo.png" alt="QBS Logo" class="h-[61px]" />
+        </div>
+        <div class="text-white">
+          <h2 class="font-sans italic font-semibold text-[44px] leading-[52px] text-white">
+            A Smart HR system doesn't just manage people—it empowers them.
+          </h2>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 w-full h-[9px] bg-brand-orange"></div>
+    </div>
+  
+    <div class="relative flex flex-col justify-center flex-1 px-4 py-12 bg-white sm:px-6 lg:2/5 lg:px-20 xl:px-24">
+  
+      <div class="absolute top-0 right-0 w-[278px] h-[267px] hidden lg:block overflow-hidden -z-0">
+        <div class="absolute bottom-0 left-0 w-[550px] h-[550px] bg-teal-100 rounded-full"></div>
+      </div>
+  
+      <div class="w-full max-w-sm mx-auto lg:w-96 relative z-10">
+        <div>
+          <h2 class="mt-6 font-sans font-semibold text-[32px] leading-[42px] tracking-tight text-black">OTP Verification</h2>
+          <p class="mt-2 font-inter text-sm leading-[21px] tracking-tighten text-neutral-60">
+            Enter the OTP sent to your email address
+          </p>
+        </div>
+  
+        
+        <div class="mt-8">
+          <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+            <div class="space-y-6">
+  
+              <div class="flex justify-left space-x-11 sm:space-x-11">
+                <input #otp1 type="text" id="otp1" formControlName="otp1" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                       (keydown)="onOtpInput($event, otp2)"
+                       class="w-14 h-14 sm:w-16 sm:h-16 text-center text-2xl font-medium border-2 border-brand-teal-dark rounded-md focus:ring-brand-teal-dark focus:border-brand-teal-dark"
+                       required>
+                <input #otp2 type="text" id="otp2" formControlName="otp2" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                       (keydown)="onOtpInput($event, otp3)"
+                       class="w-14 h-14 sm:w-16 sm:h-16 text-center text-2xl font-medium border-2 rounded-md focus:ring-brand-teal-dark focus:border-brand-teal-dark"
+                       required>
+                <input #otp3 type="text" id="otp3" formControlName="otp3" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                       (keydown)="onOtpInput($event, otp4)"
+                       class="w-14 h-14 sm:w-16 sm:h-16 text-center text-2xl font-medium border-2 rounded-md focus:ring-brand-teal-dark focus:border-brand-teal-dark"
+                       required>
+                <input #otp4 type="text" id="otp4" formControlName="otp4" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+                       (keydown)="onOtpInput($event, null)"
+                       class="w-14 h-14 sm:w-16 sm:h-16 text-center text-2xl font-medium border-2 rounded-md focus:ring-brand-teal-dark focus:border-brand-teal-dark"
+                       required>
+              </div>
+  
+              <div class="text-left text-xs font-inter text-gray-400 pt-2">
+                 <span>00:30 Seconds left</span> <span class="mx-1">|</span>
+                 <span>Didn't receive code?</span>
+                 <button type="button" (click)="resendOtp()"
+                         class="ml-1 font-semibold text-brand-teal-dark hover:text-brand-teal-darker hover:underline focus:outline-none">Resend</button>
+              </div>
+  
+              <div>
+                <button
+                  type="submit"
+                  [disabled]="!otpForm.valid"
+                  class="flex justify-center items-center w-full h-[44px] px-4 font-sans font-semibold text-sm leading-[24px] border border-transparent rounded-5px shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-teal-dark focus:ring-offset-2 disabled:cursor-not-allowed"
+                  [ngClass]="{
+                    'text-white bg-teal-600 hover:bg-teal-700': otpForm.valid,  
+                    'bg-gray-300 text-gray-500': !otpForm.valid  
+                  }"
+                  (click)="onVerifyOtp()"
+                >
+                  Verify OTP
+                </button>
+              </div>
+  
+            </div>
+          </form> 
+        </div>
+      </div>
+    </div>
+  </div>

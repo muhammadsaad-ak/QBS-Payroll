@@ -18,6 +18,16 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/forgot-password/forgot-password.component') // Assuming this path based on generation command
                             .then(m => m.ForgotPasswordComponent)
   },
+  {
+    path: 'otp-verification',
+    loadComponent: () => import('./features/auth/otp-verification/otp-verification.component') // Assuming this path based on generation command
+                            .then(m => m.OtpVerificationComponent)
+  },
+  {
+    path: 'set-new-password',
+    loadComponent: () => import('./features/auth/set-new-password/set-new-password.component') // Assuming this path based on generation command
+                            .then(m => m.SetNewPasswordComponent)
+  },
 
   // 3. Default App Route: Redirects the base path ('') to the signin page
   {

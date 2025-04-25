@@ -15,6 +15,7 @@ export class ForgotPasswordComponent {
 
   resetPassword(): void {
     console.log('Reset Password button clicked');
+    this.router.navigate(['admin/otp-verification']);
     // TODO: Implement API call to send reset link
     // Potentially navigate to a confirmation page after success
   }
