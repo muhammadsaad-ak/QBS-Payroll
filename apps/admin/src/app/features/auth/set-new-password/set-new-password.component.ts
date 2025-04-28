@@ -1,62 +1,55 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-// Import ReactiveFormsModule for handling forms
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-// Import MatIconModule if using Angular Material icons for visibility toggle
 import { MatIconModule } from '@angular/material/icon';
-
 
 @Component({
   selector: 'app-set-new-password',
   standalone: true,
-  // Add ReactiveFormsModule and MatIconModule
   imports: [CommonModule, RouterModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './set-new-password.component.html',
-  styleUrls: ['./set-new-password.component.scss'] // or .css
+  styleUrls: ['./set-new-password.component.scss'],
 })
 export class SetNewPasswordComponent {
-  // Flags for password visibility
+  passwordForm: FormGroup;
   newPasswordVisible = false;
   confirmPasswordVisible = false;
 
-  // TODO: Define FormGroup for password fields and validation
-  // passwordForm: FormGroup;
-
-  constructor(private router: Router /*, private fb: FormBuilder */) {
-    // TODO: Initialize form group in constructor
-    // this.passwordForm = this.fb.group({
-    //   newPassword: ['', [Validators.required /*, add other validators */]],
-    //   confirmPassword: ['', [Validators.required]]
-    // }, { validators: passwordMatchValidator }); // Add custom validator for match
+  constructor(private router: Router, private fb: FormBuilder) {
+    this.passwordForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: this.passwordMatchValidator } // Custom validator for matching passwords
+    );
   }
 
-  updatePassword(): void {
-    console.log('Update Password clicked');
-    // TODO: Check form validity
-    // if (this.passwordForm.valid) {
-    //   console.log('Form valid, calling API...');
-    //   const newPassword = this.passwordForm.value.newPassword;
-    //   // Call API to update password
-    //   // On success navigate to login or dashboard
-    //   // this.router.navigate(['/signin']);
-    // } else {
-    //   console.log('Form invalid');
-    //   // Mark fields as touched to show errors
-    //   this.passwordForm.markAllAsTouched();
-    // }
+  // Custom validator to check if passwords match
+  passwordMatchValidator(form: FormGroup) {
+    const newPassword = form.get('newPassword')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return newPassword === confirmPassword ? null : { mismatch: true };
   }
 
   toggleNewPasswordVisibility(): void {
     this.newPasswordVisible = !this.newPasswordVisible;
-    // TODO: Update input type dynamically based on this flag
   }
 
   toggleConfirmPasswordVisibility(): void {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
-     // TODO: Update input type dynamically based on this flag
   }
 
+  updatePassword(): void {
+    this.router.navigate(['admin/signin']);
+    if (this.passwordForm.valid) {
+      console.log('Form valid, calling API...', this.passwordForm.value);
+      // Call API to update password here
+      // On success, navigate to login or dashboard
+    } else {
+      console.log('Form invalid');
+      this.passwordForm.markAllAsTouched(); // Show validation errors
+    }
+  }
 }
-
-// TODO: Add custom validator function `passwordMatchValidator` if using Reactive Forms
