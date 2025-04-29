@@ -44,24 +44,31 @@ export const routes: Routes = [
     children: [
       {
         path: '', // Default route *within* the layout
-        redirectTo: 'company',
+        redirectTo: 'organization',
         pathMatch: 'full'
       },
-      {
-        path: 'company',
-        loadComponent: () => import('./features/company-management/company-list/company-list.component')
-                                .then(m => m.CompanyListComponent)
-      },
-      {
-        path: 'organization',
-        loadComponent: () => import('./features/organization/org-type/org-type.component')
-                                .then(m => m.OrgTypeComponent)
-      },
-      {
-        path: 'grade',
-        loadComponent: () => import('./features/grade-management/grade/grade.component')
-                                .then(m => m.GradeComponent)
-      }
+      // {
+      //   path: 'organization',
+      //   loadComponent: () => import('./features/organization/organization-structure-page.component')
+      //                           .then(m => m.OrganizationStructurePageComponent)
+      // },
+      // Corrected entry in app.routes.ts -> LayoutComponent children
+{
+  path: 'organization', // Base path for this feature
+  // CORRECT: Use loadChildren to load the feature's routes
+  loadChildren: () => import('./features/organization/organization.routes')
+                         .then(m => m.ORGANIZATION_ROUTES) // Point to the exported Routes array
+},
+      // {
+      //   path: 'organization',
+      //   loadComponent: () => import('./features/organization/org-type/org-type.component')
+      //                           .then(m => m.OrgTypeComponent)
+      // },
+      // {
+      //   path: 'grade',
+      //   loadComponent: () => import('./features/grade-management/grade/grade.component')
+      //                           .then(m => m.GradeComponent)
+      // }
       // Add other routes requiring the layout here
     ]
   }

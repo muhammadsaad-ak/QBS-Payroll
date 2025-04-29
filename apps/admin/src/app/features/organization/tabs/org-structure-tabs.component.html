@@ -1,0 +1,12 @@
+<nav mat-tab-nav-bar class="styled-tab-nav-bar px-6">
+    <a mat-tab-link
+       *ngFor="let tab of tabs"
+       [routerLink]="tab.link"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive"
+       [disableRipple]="true"> <div class="tab-label">
+        <span class="tab-label-title">{{ tab.label }}</span>
+        <span class="tab-label-subtitle">{{ tab.subtitle }}</span>
+      </div>
+    </a>
+  </nav>

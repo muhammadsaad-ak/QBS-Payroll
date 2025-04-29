@@ -13,6 +13,6 @@ export class SignInComponent {
   constructor(private router: Router) {}
 
   login(): void {
-    this.router.navigateByUrl('admin/company');
+    this.router.navigateByUrl('admin/organization');
   }
 }

@@ -9,6 +9,11 @@
   --secondary-color: #F6F7F8;
 }
 
+body {
+  @apply bg-app-bg; /* Use the custom color name from config */
+  /* OR directly using arbitrary value: */
+  /* @apply bg-[#F8F9FA]; */
+}
 // Typography
 h1 {
   @apply text-4xl font-semibold text-primary;

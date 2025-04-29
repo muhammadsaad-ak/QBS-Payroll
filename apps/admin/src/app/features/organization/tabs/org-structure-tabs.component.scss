@@ -1,0 +1,91 @@
+// org-structure-tabs.component.scss
+
+// Define custom colors
+$active-tab-color: #FF8000; // Orange for indicator and active title
+$inactive-tab-text-color: #6b7280; // text-gray-500
+$active-tab-text-color: #1f2937;   // text-gray-800
+$tab-subtitle-color: #9ca3af;      // text-gray-400
+$tab-border-color: #E5E7EB;        // border-gray-200
+
+:host ::ng-deep .styled-tab-nav-bar {
+  // Set the active tab indicator color
+  --mdc-tab-indicator-active-indicator-color: #{$active-tab-color};
+
+  // Ensure the nav bar itself has no default border or shadow that might appear black
+  &.mat-mdc-tab-nav-bar {
+    border-bottom: none !important; // Remove any default bottom border
+    box-shadow: none !important;    // Remove any default shadow
+    background-color: #ffffff;      // Ensure white background
+  }
+
+  // Style the tab link container
+  .mat-mdc-tab-link-container {
+    border-bottom-width: 0 !important; // Explicitly remove any border
+    background-color: #ffffff;         // Ensure white background
+  }
+
+  // Style individual tab links
+  .mat-mdc-tab-link {
+    padding: 0 16px !important;
+    height: 70px !important;
+    opacity: 1 !important;
+
+    .tab-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      white-space: normal;
+      line-height: 1.4;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .tab-label-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: $inactive-tab-text-color;
+      transition: color 0.3s ease;
+    }
+
+    .tab-label-subtitle {
+      font-size: 0.75rem;
+      color: $tab-subtitle-color;
+      transition: color 0.3s ease;
+    }
+
+    &.mdc-tab--active {
+      .tab-label-title {
+        color: $active-tab-color;
+        font-weight: 600;
+      }
+      .tab-label-subtitle {
+        color: $inactive-tab-text-color;
+      }
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none !important;
+      outline-width: 0 !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // Explicitly style the tab indicator
+  .mdc-tab-indicator {
+    .mdc-tab-indicator__content--underline {
+      border-top-width: 3px !important; // Ensure the indicator is 3px thick
+      border-bottom-width: 0 !important;
+      border-left-width: 0 !important;
+      border-right-width: 0 !important;
+      border-color: $active-tab-color !important; // Fallback in case CSS variable fails
+    }
+  }
+
+  // Remove any ripple effect
+  .mat-mdc-tab-ripple {
+    display: none;
+  }
+}

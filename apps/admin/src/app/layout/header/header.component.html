@@ -1,4 +1,3 @@
-<!-- header.component.html -->
 <header class="admin-header bg-gray-100 border-b border-gray-300 flex items-center justify-between px-4 py-2">
   <!-- Left: Language Dropdown -->
   <div class="flex items-center">
@@ -12,19 +11,25 @@
 
   <!-- Right: Icons and Logout -->
   <div class="flex items-center space-x-4">
-    <!-- Icons (placeholders, replace with actual icons) -->
+    <!-- Theme Toggle Icon (Sun/Moon) -->
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons">brightness_4</span>
+    </button>
+    <!-- Refresh Icon -->
+    <button class="text-gray-600 hover:text-gray-800">
+      <span class="material-icons">refresh</span>
+    </button>
+    <!-- Notifications Icon -->
     <button class="text-gray-600 hover:text-gray-800">
       <span class="material-icons">notifications</span>
     </button>
+    <!-- Apps Grid Icon -->
     <button class="text-gray-600 hover:text-gray-800">
-      <span class="material-icons">settings</span>
-    </button>
-    <button class="text-gray-600 hover:text-gray-800">
-      <span class="material-icons">help</span>
+      <span class="material-icons">apps</span>
     </button>
     <!-- Logout Button -->
-    <button class="flex items-center text-red-500 hover:text-red-700">
-      <span class="material-icons mr-1">logout</span>
+    <button (click)="Logout()" class="flex items-center text-red-500 hover:text-red-700">
+      <span class="material-icons mr-2" style="transform: rotate(180deg); display: inline-flex;">logout</span>
       Log out
     </button>
   </div>

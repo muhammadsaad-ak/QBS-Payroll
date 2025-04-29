@@ -50,9 +50,9 @@
             class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
             [ngClass]="isCompanySetupActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showCompanySetup()"
+            [routerLink]="['/admin/organization/']" 
             routerLinkActive="bg-white text-primary"
-            [routerLinkActiveOptions]="{ exact: false }"
-          >
+            [routerLinkActiveOptions]="{ exact: false }">
             <div class="flex items-center">
               <img
                 [src]="isCompanySetupActive() ? 'assets/house-active.svg' : 'assets/house.svg'"
@@ -87,53 +87,82 @@
     </div>
 
     <!-- Company Setup Submenu View -->
-    <div *ngIf="currentView === 'companySetup' && !isCollapsed">
-      <div class="flex items-center mb-3">
-        <button
-          (click)="showMainMenu()"
-          class="text-white hover:text-gray-300 mr-2"
-        >
-          <img
-            src="assets/chevron-left.svg"
-            alt="Back to Main Menu"
-            class="h-5 w-5"
-          />
-        </button>
-        <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
-          Company Setup
-        </h3>
-      </div>
-      <ul class="space-y-1">
-        <li>
-          <a
-            routerLink="/company/department"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
-          >
-            <img
-              src="assets/submenu.svg"
-              alt="Submenu Icon"
-              class="h-4 w-4 mr-2"
-            />
-            Department
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/company/division"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
-          >
-            <img
-              src="assets/submenu.svg"
-              alt="Submenu Icon"
-              class="h-4 w-4 mr-2"
-            />
-            Division
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!-- Company Setup Submenu View -->
+<div *ngIf="currentView === 'companySetup' && !isCollapsed">
+  <div class="flex items-center mb-3">
+    <button
+      (click)="showMainMenu()"
+      class="text-white hover:text-gray-300 mr-2"
+    >
+      <img
+        src="assets/chevron-left.svg"
+        alt="Back to Main Menu"
+        class="h-5 w-5"
+      />
+    </button>
+    <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
+      Company Setup
+    </h3>
+  </div>
+  <ul class="space-y-1">
+    <li>
+      <a
+        routerLink="/admin/organization/group-of-company"
+        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+        routerLinkActive="text-orange-400 text-white"
+      >
+        <img
+          src="assets/submenu.svg"
+          alt="Submenu Icon"
+          class="h-4 w-4 mr-2"
+        />
+        Group of companies
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/admin/organization/company-creation"
+        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+        routerLinkActive="text-orange-400 text-white"
+      >
+        <img
+          src="assets/submenu.svg"
+          alt="Submenu Icon"
+          class="h-4 w-4 mr-2"
+        />
+        Company Creation
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/admin/organization/organization-type"
+        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+        routerLinkActive="text-orange-400 text-white"
+      >
+        <img
+          src="assets/submenu.svg"
+          alt="Submenu Icon"
+          class="h-4 w-4 mr-2"
+        />
+        Organization Type
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="/admin/organization/org-structure-detail"
+        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+        routerLinkActive="text-orange-400 text-white"
+      >
+        <img
+          src="assets/submenu.svg"
+          alt="Submenu Icon"
+          class="h-4 w-4 mr-2"
+        />
+        Organization Structure
+      </a>
+    </li>
+  </ul>
+</div>
 
     <!-- Position Submenu View -->
     <div *ngIf="currentView === 'position' && !isCollapsed">
@@ -335,7 +364,7 @@
           routerLinkActive="bg-white text-primary"
         >
           <img
-            src="assets/notifications.svg"
+            src="assets/Bell_Notification.svg"
             alt="Notifications Icon"
             class="h-5 w-5 mr-2"
           />
