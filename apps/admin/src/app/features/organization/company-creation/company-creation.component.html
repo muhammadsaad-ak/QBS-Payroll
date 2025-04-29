@@ -1,1 +1,136 @@
-<p>company-creation works!</p>
+<div class="">
+
+  <!-- Main Content -->
+  <div class="flex space-x-6">
+    <!-- Current Structure (Hierarchy) -->
+    <div class="w-1/3 bg-white p-4 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800">Current Structure {{ step === 'creation1' ? '(not available)' : '' }}</h3>
+        <select class="border border-gray-300 rounded px-2 py-1 text-sm" [(ngModel)]="selectedGroup">
+          <option value="" disabled>Select Group of Company</option>
+          <option *ngFor="let group of groups" [value]="group.name">{{ group.name }}</option>
+        </select>
+      </div>
+      <div class="relative">
+        <!-- Static Hierarchy -->
+        <div class="space-y-2">
+          <div *ngFor="let item of hierarchy; let i = index" class="flex items-center">
+            <div class="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-white text-xs" [ngClass]="{'ml-6': item.parent}">
+              {{ item.isGroup ? 'GOC' : 'C' }}
+            </div>
+            <div class="ml-2 text-sm text-gray-700">
+              {{ item.name }} <span *ngIf="item.isGroup">::</span>
+            </div>
+            <div *ngIf="item.parent && i > 0" class="absolute left-3 h-10 border-l-2 border-gray-300" [ngStyle]="{'top': (i * 2 - 1) + 'rem'}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Creation Form -->
+    <div class="w-2/3 bg-white p-6 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold text-gray-800">Company Creation</h3>
+        <div class="flex items-center space-x-3">
+          <div class="flex items-center">
+            <span class="mr-2 text-sm text-gray-600">Active</span>
+            <button (click)="toggleActive()" class="relative inline-flex items-center h-6 rounded-full w-11" [ngClass]="isActive ? 'bg-teal-500' : 'bg-gray-300'">
+              <span class="absolute left-1 text-white text-xs" [ngClass]="isActive ? 'opacity-100' : 'opacity-0'">YES</span>
+              <span class="absolute right-1 text-white text-xs" [ngClass]="isActive ? 'opacity-0' : 'opacity-100'">NO</span>
+              <span class="inline-block w-4 h-4 transform bg-white rounded-full" [ngClass]="isActive ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+          <button (click)="viewDateTrack()" class="inline-flex items-center px-3 py-1 border border-orange-500 rounded-md text-sm font-medium text-orange-600 hover:bg-orange-50">
+            <img src="assets/date-track.svg" alt="Date Track Icon" class="h-5 w-5 mr-2" />
+            View Date Track
+          </button>
+        </div>
+      </div>
+
+      <form [formGroup]="companyForm" (ngSubmit)="save()" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Company ID</label>
+            <input type="text" formControlName="companyId" class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" placeholder="(system-generated)" readonly>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Company Name</label>
+            <input type="text" formControlName="companyName" class="mt-1 block w-full border border-gray-300 rounded-md p-2" [ngClass]="{'border-red-500': companyForm.get('companyName')?.touched && companyForm.get('companyName')?.invalid}">
+            <span *ngIf="companyForm.get('companyName')?.touched && companyForm.get('companyName')?.invalid" class="text-red-500 text-xs">Company Name is required</span>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Type of Company</label>
+            <input type="text" formControlName="typeOfCompany" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Primary Currency</label>
+            <select formControlName="primaryCurrency" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+              <option value="PKR">PKR</option>
+              <!-- Add more currencies as needed -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Secondary Currency</label>
+            <select formControlName="secondaryCurrency" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+              <option value="PKR">PKR</option>
+              <!-- Add more currencies as needed -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Effective Date</label>
+            <div class="relative">
+              <input type="text" formControlName="effectiveDate" class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Select Date">
+              <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <label class="block text-sm font-medium text-gray-700 mr-4">Parent Company</label>
+            <button type="button" (click)="companyForm.get('parentCompany')?.setValue(!companyForm.get('parentCompany')?.value)" class="relative inline-flex items-center h-6 rounded-full w-11" [ngClass]="companyForm.get('parentCompany')?.value ? 'bg-teal-500' : 'bg-gray-300'">
+              <span class="absolute left-1 text-white text-xs" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-100' : 'opacity-0'">YES</span>
+              <span class="absolute right-1 text-white text-xs" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-0' : 'opacity-100'">NO</span>
+              <span class="inline-block w-4 h-4 transform bg-white rounded-full" [ngClass]="companyForm.get('parentCompany')?.value ? 'translate-x-6' : 'translate-x-1'"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Logo Upload -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Upload Logo</label>
+          <div class="mt-1">
+            <div *ngIf="!uploadedLogo" class="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              </svg>
+              <p class="mt-1 text-sm text-gray-600">Drag your file(s) or browse</p>
+              <p class="mt-1 text-xs text-gray-500">Max 2 MB file is allowed</p>
+              <p class="mt-1 text-xs text-gray-500">Only support .jpg, .png, and .svg & zip files</p>
+            </div>
+            <div *ngIf="uploadedLogo" class="border border-gray-300 rounded-md p-4 flex items-center justify-between">
+              <div class="flex items-center">
+                <img src="assets/QBS-logo.png" alt="Uploaded Logo" class="h-8 w-8 mr-2">
+                <div>
+                  <p class="text-sm text-gray-700">{{ uploadedLogo.name }}</p>
+                  <p class="text-xs text-gray-500">{{ uploadedLogo.size }}</p>
+                </div>
+              </div>
+              <button type="button" (click)="uploadedLogo = null" class="text-gray-400 hover:text-gray-600">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end space-x-3 mt-6">
+          <button type="button" (click)="viewHierarchy()" class="px-4 py-2 border border-teal-500 text-teal-500 rounded-md hover:bg-teal-50">View Hierarchy</button>
+          <button type="button" (click)="cancel()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

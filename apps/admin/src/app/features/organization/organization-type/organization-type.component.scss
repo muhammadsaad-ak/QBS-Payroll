@@ -1,0 +1,23 @@
+:host {
+    display: block;
+  }
+  
+  /* Ensure the hierarchy lines are positioned correctly */
+  .relative {
+    position: relative;
+  }
+  
+  /* Style for toggle switches */
+  button:focus {
+    outline: none;
+  }
+  
+  /* Ensure the form inputs have consistent styling */
+  input, select, textarea {
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #14b8a6; /* Tailwind teal-500 */
+  }

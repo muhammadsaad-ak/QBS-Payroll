@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SidebarService } from './sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,39 +10,47 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnDestroy{
+export class SidebarComponent implements OnDestroy {
   isCollapsed = false;
-  currentView: 'main' | 'companySetup' | 'position' = 'main'; // Track the current view
+  currentView: 'main' | 'companySetup' | 'position' = 'main';
   private routeSubscription: Subscription;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private sidebarService: SidebarService
+  ) {
     this.routeSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.cdr.detectChanges(); // Trigger change detection on route change
+        this.cdr.detectChanges();
       }
+    });
+
+    // Subscribe to the sidebar service to get the collapsed state
+    this.sidebarService.isCollapsed$.subscribe(isCollapsed => {
+      this.isCollapsed = isCollapsed;
     });
   }
 
   ngOnDestroy(): void {
-    // Clean up subscription to avoid memory leaks
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
   }
 
-  toggleSidebar() {
-    this.isCollapsed = !this.isCollapsed;
+  toggleSidebar(): void {
+    this.sidebarService.toggleSidebar();
   }
 
-  showMainMenu() {
+  showMainMenu(): void {
     this.currentView = 'main';
   }
 
-  showCompanySetup() {
+  showCompanySetup(): void {
     this.currentView = 'companySetup';
   }
 
-  showPosition() {
+  showPosition(): void {
     this.currentView = 'position';
   }
 

@@ -1,10 +1,12 @@
-<!-- layout.component.html -->
 <div class="flex min-h-screen">
   <!-- Sidebar -->
-  <app-sidebar class="z-10"></app-sidebar>
+  <app-sidebar></app-sidebar>
 
   <!-- Main Content -->
-  <div class="flex-1 flex flex-col">
+  <div
+    class="flex-1 flex flex-col transition-all duration-300"
+    [ngClass]="isSidebarCollapsed ? 'ml-[56px]' : 'ml-[280px]'"
+  >
     <!-- Header -->
     <app-header></app-header>
 

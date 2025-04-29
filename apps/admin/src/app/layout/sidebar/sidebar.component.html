@@ -1,9 +1,8 @@
-<!-- sidebar.component.html -->
 <nav
-  class="admin-sidebar bg-primary text-white h-screen flex flex-col transition-all duration-300"
+  class="admin-sidebar bg-primary text-white h-screen flex flex-col transition-all duration-300 fixed top-0 bottom-0 left-0"
   [ngClass]="isCollapsed ? 'w-[56px]' : 'w-[280px]'"
 >
-  <!-- Toggle Button -->
+  <!-- Rest of the sidebar content remains unchanged -->
   <div class="p-3 flex justify-between items-center">
     <img
       *ngIf="!isCollapsed"
@@ -24,7 +23,6 @@
     </button>
   </div>
 
-  <!-- Search Bar -->
   <div class="px-3 mb-3" *ngIf="!isCollapsed">
     <input
       type="text"
@@ -33,9 +31,7 @@
     />
   </div>
 
-  <!-- Main Menu or Submenu -->
   <div class="px-3 mb-4 font-inter flex-1 overflow-y-auto custom-scrollbar">
-    <!-- Main Menu View -->
     <div *ngIf="currentView === 'main'">
       <h3
         class="text-p font-normal text-gray-300 uppercase tracking-wider mb-3"
@@ -44,7 +40,6 @@
         Main Menu
       </h3>
       <ul class="sidebar-menu space-y-1">
-        <!-- Company Setup -->
         <li>
           <div
             class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
@@ -52,7 +47,8 @@
             (click)="showCompanySetup()"
             [routerLink]="['/admin/organization/']" 
             routerLinkActive="bg-white text-primary"
-            [routerLinkActiveOptions]="{ exact: false }">
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
             <div class="flex items-center">
               <img
                 [src]="isCompanySetupActive() ? 'assets/house-active.svg' : 'assets/house.svg'"
@@ -63,8 +59,6 @@
             </div>
           </div>
         </li>
-
-        <!-- Position -->
         <li>
           <div
             class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
@@ -86,85 +80,82 @@
       </ul>
     </div>
 
-    <!-- Company Setup Submenu View -->
-    <!-- Company Setup Submenu View -->
-<div *ngIf="currentView === 'companySetup' && !isCollapsed">
-  <div class="flex items-center mb-3">
-    <button
-      (click)="showMainMenu()"
-      class="text-white hover:text-gray-300 mr-2"
-    >
-      <img
-        src="assets/chevron-left.svg"
-        alt="Back to Main Menu"
-        class="h-5 w-5"
-      />
-    </button>
-    <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
-      Company Setup
-    </h3>
-  </div>
-  <ul class="space-y-1">
-    <li>
-      <a
-        routerLink="/admin/organization/group-of-company"
-        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-        routerLinkActive="text-orange-400 text-white"
-      >
-        <img
-          src="assets/submenu.svg"
-          alt="Submenu Icon"
-          class="h-4 w-4 mr-2"
-        />
-        Group of companies
-      </a>
-    </li>
-    <li>
-      <a
-        routerLink="/admin/organization/company-creation"
-        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-        routerLinkActive="text-orange-400 text-white"
-      >
-        <img
-          src="assets/submenu.svg"
-          alt="Submenu Icon"
-          class="h-4 w-4 mr-2"
-        />
-        Company Creation
-      </a>
-    </li>
-    <li>
-      <a
-        routerLink="/admin/organization/organization-type"
-        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-        routerLinkActive="text-orange-400 text-white"
-      >
-        <img
-          src="assets/submenu.svg"
-          alt="Submenu Icon"
-          class="h-4 w-4 mr-2"
-        />
-        Organization Type
-      </a>
-    </li>
-    <li>
-      <a
-        routerLink="/admin/organization/org-structure-detail"
-        class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-        routerLinkActive="text-orange-400 text-white"
-      >
-        <img
-          src="assets/submenu.svg"
-          alt="Submenu Icon"
-          class="h-4 w-4 mr-2"
-        />
-        Organization Structure
-      </a>
-    </li>
-  </ul>
-</div>
+    <div *ngIf="currentView === 'companySetup' && !isCollapsed">
+      <div class="flex items-center mb-3">
+        <button
+          (click)="showMainMenu()"
+          class="text-white hover:text-gray-300 mr-2"
+        >
+          <img
+            src="assets/chevron-left.svg"
+            alt="Back to Main Menu"
+            class="h-5 w-5"
+          />
+        </button>
+        <h3 class="text-p font-normal text-gray-300 uppercase tracking-wider">
+          Company Setup
+        </h3>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            routerLink="/admin/organization/group-of-company"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="text-orange-400 text-white"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Group of companies
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/organization/company-creation"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="text-orange-400 text-white"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Company Creation
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/organization/organization-type"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="text-orange-400 text-white"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Organization Type
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/organization/org-structure-detail"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
+            routerLinkActive="text-orange-400 text-white"
+          >
+            <img
+              src="assets/submenu.svg"
+              alt="Submenu Icon"
+              class="h-4 w-4 mr-2"
+            />
+            Organization Structure
+          </a>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Position Submenu View -->
     <div *ngIf="currentView === 'position' && !isCollapsed">
       <div class="flex items-center mb-3">
         <button
@@ -340,7 +331,6 @@
     </div>
   </div>
 
-  <!-- Settings and Notifications -->
   <div class="px-3 pb-3 font-inter">
     <ul class="space-y-1">
       <li>
@@ -374,7 +364,6 @@
     </ul>
   </div>
 
-  <!-- User Profile -->
   <div class="px-3 pb-3 border-t border-gray-600">
     <div class="flex items-center p-2">
       <img
