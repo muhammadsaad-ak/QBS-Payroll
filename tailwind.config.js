@@ -3,6 +3,10 @@ module.exports = {
   content: [
     "./apps/**/*.{html,ts}",
   ],
+  safelist: [
+    'text-orange-400',
+    'hover:text-orange-400',
+  ],
   theme: {
     extend: {
       colors: {

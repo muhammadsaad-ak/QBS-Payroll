@@ -64,6 +64,7 @@
             class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
             [ngClass]="isPositionActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showPosition()"
+            [routerLink]="['/admin/position/']" 
             routerLinkActive="bg-white text-primary"
             [routerLinkActiveOptions]="{ exact: false }"
           >
@@ -100,8 +101,8 @@
         <li>
           <a
             routerLink="/admin/organization/group-of-company"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="text-orange-400 text-white"
+            class="flex items-center px-4 py-2 transition-colors font-normal hover:text-orange-400"
+            routerLinkActive="text-orange-400 !text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -114,8 +115,8 @@
         <li>
           <a
             routerLink="/admin/organization/company-creation"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="text-orange-400 text-white"
+            class="flex items-center px-4 py-2 transition-colors font-normal hover:text-orange-400"
+            routerLinkActive="text-orange-400 !text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -128,8 +129,8 @@
         <li>
           <a
             routerLink="/admin/organization/organization-type"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="text-orange-400 text-white"
+            class="flex items-center px-4 py-2 transition-colors font-normal hover:text-orange-400"
+            routerLinkActive="text-orange-400 !text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -142,8 +143,8 @@
         <li>
           <a
             routerLink="/admin/organization/org-structure-detail"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="text-orange-400 text-white"
+            class="flex items-center px-4 py-2 transition-colors font-normal hover:text-orange-400"
+            routerLinkActive="text-orange-400 !text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -175,9 +176,9 @@
       <ul class="space-y-1">
         <li>
           <a
-            routerLink="/organization/grade"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/grade"  
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -189,9 +190,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/grade-level"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/grade-level"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -203,9 +204,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/location"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/location"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -217,9 +218,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/cost-center"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/cost-center"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -231,9 +232,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/position-type"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/position-type"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -245,9 +246,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/position-status"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/position-status"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -259,9 +260,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/employment-type"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/employment-type"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -273,9 +274,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/employment-group"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/employment-group"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -287,23 +288,23 @@
         </li>
         <li>
           <a
-            routerLink="/organization/grade-assessment"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/grade-assignment"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
               alt="Submenu Icon"
               class="h-4 w-4 mr-2"
             />
-            Grade Assessment
+            Grade Assignment
           </a>
         </li>
         <li>
           <a
-            routerLink="/organization/job"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/job"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -315,9 +316,9 @@
         </li>
         <li>
           <a
-            routerLink="/organization/function"
-            class="flex items-center px-4 py-2 transition-colors font-normal text-p"
-            routerLinkActive="bg-white text-primary"
+            routerLink="/admin/position/function"
+            class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
+            routerLinkActive="text-orange-400 text-white"
           >
             <img
               src="assets/submenu.svg"
@@ -349,7 +350,7 @@
       </li>
       <li>
         <a
-          routerLink="/notifications"
+          routerLink="/settings"
           class="flex items-center p-2 rounded hover:bg-teal-700 transition-colors text-p"
           routerLinkActive="bg-white text-primary"
         >

@@ -68,6 +68,22 @@ export class SidebarComponent implements OnDestroy {
   }
 
   isPositionActive(): boolean {
-    return this.router.url.includes('/organization');
+    if (this.router && this.router.url) {
+      const position = [
+        '/grade',
+        '/grade-level',
+        '/location',
+        '/cost-center',
+        '/position-type',
+        '/position-status',
+        '/employment-type',
+        '/employment-group',
+        '/grade-assignment',
+        '/job',
+        '/function',
+      ];
+      return position.some(route => this.router.url.includes(route));
+    }
+    return false;
   }
 }
