@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './grade.component.html',
   styleUrls: ['./grade.component.scss']
 })
-export class GradeComponent {
+export class GradeComponent implements OnInit, OnDestroy {
   gradeForm: FormGroup;
   grades: any[] = [];
   isFormCollapsed = false;
@@ -28,6 +28,21 @@ export class GradeComponent {
       effectiveDate: ['', Validators.required],
       active: [true]
     });
+  }
+
+  ngOnInit() {
+    // Reset state on component initialization
+    this.isFormCollapsed = false;
+    this.grades = [];
+    this.currentPage = 1;
+    this.paginatedGrades = [];
+    this.totalPages = 1;
+    this.resetForm();
+  }
+
+  ngOnDestroy() {
+    // Ensure animations can complete by resetting state
+    this.isFormCollapsed = false;
   }
 
   toggleFormCollapse() {
