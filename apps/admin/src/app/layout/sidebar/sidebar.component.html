@@ -1,9 +1,9 @@
 <nav
   class="admin-sidebar bg-primary text-white h-screen flex flex-col transition-all duration-300 fixed top-0 bottom-0 left-0"
-  [ngClass]="isCollapsed ? 'w-[56px]' : 'w-[280px]'"
+  [ngClass]="isCollapsed ? 'w-[80px]' : 'w-[280px]'"
 >
   <!-- Rest of the sidebar content remains unchanged -->
-  <div class="p-3 flex justify-between items-center">
+  <div [ngClass]="isCollapsed ? 'p-3 flex justify-center items-center' : 'p-3 flex justify-between items-center'">
     <img
       *ngIf="!isCollapsed"
       src="assets/QBS-logo.png"
@@ -42,10 +42,10 @@
       <ul class="sidebar-menu space-y-1">
         <li>
           <div
-            class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            class="flex items-center justify-center p-2 rounded transition-colors font-normal text-p cursor-pointer"
             [ngClass]="isCompanySetupActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showCompanySetup()"
-            [routerLink]="['/admin/organization/']" 
+            [routerLink]="['/admin/organization/']"
             routerLinkActive="bg-white text-primary"
             [routerLinkActiveOptions]="{ exact: false }"
           >
@@ -61,10 +61,10 @@
         </li>
         <li>
           <div
-            class="flex items-center justify-between p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            class="flex items-center justify-center p-2 rounded transition-colors font-normal text-p cursor-pointer"
             [ngClass]="isPositionActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showPosition()"
-            [routerLink]="['/admin/position/']" 
+            [routerLink]="['/admin/position/']"
             routerLinkActive="bg-white text-primary"
             [routerLinkActiveOptions]="{ exact: false }"
           >
@@ -176,7 +176,7 @@
       <ul class="space-y-1">
         <li>
           <a
-            routerLink="/admin/position/grade"  
+            routerLink="/admin/position/grade"
             class="flex items-center px-4 py-2 transition-colors font-normal text-p hover:text-orange-400"
             routerLinkActive="text-orange-400 text-white"
           >
@@ -337,44 +337,57 @@
       <li>
         <a
           routerLink="/settings"
-          class="flex items-center p-2 rounded hover:bg-teal-700 transition-colors text-p"
+          class="flex items-center p-2 justify-center rounded hover:bg-teal-700 transition-colors text-p"
           routerLinkActive="bg-white text-primary"
         >
+        <div
+        class="flex flex-col items-center"
+        [ngClass]="isCollapsed ? 'w-full' : 'flex-row items-center'"
+      >
           <img
             src="assets/settings.svg"
             alt="Settings Icon"
             class="h-5 w-5 mr-2"
           />
-          <span *ngIf="!isCollapsed">Settings</span>
+        </div>
+        <span *ngIf="!isCollapsed">Settings</span>
         </a>
       </li>
       <li>
         <a
-          routerLink="/settings"
-          class="flex items-center p-2 rounded hover:bg-teal-700 transition-colors text-p"
+          routerLink="/notifications"
+          class="flex items-center p-2 justify-center rounded hover:bg-teal-700 transition-colors text-p"
           routerLinkActive="bg-white text-primary"
         >
+        <div
+        class="flex flex-col items-center"
+        [ngClass]="isCollapsed ? 'w-full' : 'flex-row items-center'"
+      >
           <img
             src="assets/Bell_Notification.svg"
             alt="Notifications Icon"
             class="h-5 w-5 mr-2"
           />
-          <span *ngIf="!isCollapsed">Notification</span>
+        </div> 
+        <span *ngIf="!isCollapsed">Notification</span>
         </a>
       </li>
     </ul>
   </div>
 
-  <div class="px-3 pb-3 border-t border-gray-600">
+  <div class="px-3 pb-3 border-t border-gray-400" [ngClass]="{'flex justify-center': isCollapsed}">
     <div class="flex items-center p-2">
+      <!-- Always show avatar -->
       <img
-        *ngIf="!isCollapsed"
-        src="assets/avatar.png"
+        src="assets/avatar.svg"
         alt="User Avatar"
-        class="h-10 w-10 rounded-full mr-2 border-2 border-white"
+        class="h-10 w-10 rounded-full border-2 border-white"
+        [ngClass]="{'mr-2': !isCollapsed}"
       />
+      <!-- Show name only when not collapsed -->
       <span *ngIf="!isCollapsed" class="text-p">Muhammad Ali</span>
-      <span class="ml-auto">
+      <!-- Show green dot only when not collapsed -->
+      <span *ngIf="!isCollapsed" class="ml-auto">
         <span class="inline-block h-4 w-4 rounded-full bg-green-400"></span>
       </span>
     </div>
