@@ -1,0 +1,4 @@
+/* Ensure table header and body columns align */
+th, td {
+    min-width: 150px; /* Matches the Tailwind min-w-[150px] for consistency */
+  }
