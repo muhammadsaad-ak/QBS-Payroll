@@ -26,7 +26,6 @@ export class SidebarComponent implements OnDestroy {
       }
     });
 
-    // Subscribe to the sidebar service to get the collapsed state
     this.sidebarService.isCollapsed$.subscribe(isCollapsed => {
       this.isCollapsed = isCollapsed;
     });

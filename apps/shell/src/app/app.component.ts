@@ -9,12 +9,6 @@ import { RouterModule, Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  title = 'shell';
-
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    this.router.navigate(['/admin']);
-  }
+export class AppComponent {
+  title = 'QBS Payroll';
 }

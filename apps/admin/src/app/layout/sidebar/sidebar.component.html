@@ -2,13 +2,12 @@
   class="admin-sidebar bg-primary text-white h-screen flex flex-col transition-all duration-300 fixed top-0 bottom-0 left-0"
   [ngClass]="isCollapsed ? 'w-[80px]' : 'w-[280px]'"
 >
-  <!-- Rest of the sidebar content remains unchanged -->
   <div [ngClass]="isCollapsed ? 'p-3 flex justify-center items-center' : 'p-3 flex justify-between items-center'">
     <img
       *ngIf="!isCollapsed"
       src="assets/QBS-logo.png"
       alt="Logo"
-      class="h-8"
+      class="h-10"
     />
     <button
       (click)="toggleSidebar()"
@@ -17,24 +16,26 @@
       <img
         src="assets/chevron-left.svg"
         alt="Toggle Sidebar"
-        class="h-5 w-5 transition-transform duration-300"
+        class="h-4 w-4 transition-transform duration-300"
         [ngClass]="isCollapsed ? 'rotate-180' : ''"
       />
     </button>
   </div>
 
-  <div class="px-3 mb-3" *ngIf="!isCollapsed">
-    <input
-      type="text"
-      placeholder="Search"
-      class="w-full p-2 rounded bg-white text-gray-700 placeholder-gray-400 focus:outline-none text-p"
-    />
+  <div class="relative px-2 my-3" *ngIf="!isCollapsed">
+    <div class="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-md">
+      <img src="assets/searchIcon.svg" alt="Search" class="w-5 h-5" />
+    </div>
+    <input type="text" placeholder="Search"
+      class="w-full px-4 py-2 border rounded-[5px] pl-12 focus:outline-none focus:border-primary" />
   </div>
 
-  <div class="px-3 mb-4 font-inter flex-1 overflow-y-auto custom-scrollbar">
+  <div class="border-b-2 border-pale mx-3"></div>
+
+  <div class="px-3 my-3 font-inter flex-1 overflow-y-auto custom-scrollbar">
     <div *ngIf="currentView === 'main'">
       <h3
-        class="text-p font-normal text-gray-300 uppercase tracking-wider mb-3"
+        class="text-[12px] font-bold font-secondary uppercase text-white mb-3"
         *ngIf="!isCollapsed"
       >
         Main Menu
@@ -42,7 +43,7 @@
       <ul class="sidebar-menu space-y-1">
         <li>
           <div
-            class="flex items-center justify-center p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            class="flex justify-start p-2 rounded transition-colors cursor-pointer"
             [ngClass]="isCompanySetupActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showCompanySetup()"
             [routerLink]="['/admin/organization/']"
@@ -55,13 +56,13 @@
                 alt="Home Icon"
                 class="h-5 w-5 mr-2"
               />
-              <span *ngIf="!isCollapsed">Company Setup</span>
+              <span class="font-secondary font-medium text-[16px]" *ngIf="!isCollapsed">Company Setup</span>
             </div>
           </div>
         </li>
         <li>
           <div
-            class="flex items-center justify-center p-2 rounded transition-colors font-normal text-p cursor-pointer"
+            class="flex justify-start p-2 rounded transition-colors font-normal text-p cursor-pointer"
             [ngClass]="isPositionActive() ? 'bg-white text-primary' : 'hover:bg-teal-700'"
             (click)="showPosition()"
             [routerLink]="['/admin/position/']"
@@ -74,7 +75,7 @@
                 alt="People Icon"
                 class="h-5 w-5 mr-2"
               />
-              <span *ngIf="!isCollapsed">Position</span>
+              <span class="font-secondary font-medium text-[16px]" *ngIf="!isCollapsed">Position</span>
             </div>
           </div>
         </li>

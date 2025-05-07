@@ -16,7 +16,8 @@ module.exports = {
         'neutral-gray': '#909090',
         'white-edgar': '#EDEDED',
         'silver-sand': '#C2C2C2',
-        'white-smoke': '#9E9E9E', 
+        'white-smoke': '#9E9E9E',
+        'pale': '#338181', 
         teal: {
           100: '#E0F2F1',
           500: '#14B8A6',
@@ -25,8 +26,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        primary: ['"Noto Sans"', 'sans-serif'],
-        secondary: ['"Inter"', 'sans-serif'],
+        primary: ['Noto Sans', 'sans-serif'],
+        secondary: ['Inter', 'sans-serif'],
       },
       fontWeight: {
         normal: 400,

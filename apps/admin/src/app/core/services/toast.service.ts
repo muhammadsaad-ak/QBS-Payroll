@@ -1,28 +1,28 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly toastr = inject(ToastrService);
+  constructor(private toast: HotToastService) {}
 
-  showToast(type: 'success' | 'error' | 'warn', message: string): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return; // Skip toasts during SSR
-    }
+  showToast(type: 'success' | 'error' | 'warn' | 'info', message: string) {
     switch (type) {
       case 'success':
-        this.toastr.success(message);
+        this.toast.success(message);
         break;
       case 'error':
-        this.toastr.error(message);
+        this.toast.error(message);
         break;
       case 'warn':
-        this.toastr.warning(message);
+        this.toast.warning(message);
         break;
+      case 'info':
+        this.toast.info(message);
+        break;
+      default:
+        this.toast.info(message);
     }
   }
 }
