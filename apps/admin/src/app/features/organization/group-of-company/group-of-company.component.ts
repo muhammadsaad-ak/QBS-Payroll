@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizationService } from '../../../core/services/organization.service';
-import { GroupOfCompanyListItem } from '../../../core/models/organization.model';
 import { CurrencyService } from '../../../core/services/currency.service';
 import { Currency } from '../../../core/models/currency.model';
+import { GroupOfCompanyAddRequest, GroupOfCompanyResponse, GroupOfCompany } from '../../../core/models/organization.model';
 
 @Component({
   selector: 'app-group-of-company',
@@ -15,7 +15,7 @@ import { Currency } from '../../../core/models/currency.model';
 export class GroupOfCompanyComponent implements OnInit {
   companyGroupForm: FormGroup;
   isTableVisible = true;
-  existingGroups: GroupOfCompanyListItem[] = [];
+  existingGroups: GroupOfCompany[] = [];
   currencies: Currency[] = [];
   currentPage = 1;
   pageSize = 10;
@@ -55,9 +55,9 @@ export class GroupOfCompanyComponent implements OnInit {
 
   loadGroups(): void {
     this.organizationService.listGroupOfCompanies(0, 10).subscribe({
-      next: (groups) => {
-        this.existingGroups = groups;
-        this.totalRows = groups.length;
+      next: (response: GroupOfCompanyResponse) => {
+        this.existingGroups = response.items;
+        this.totalRows = response.totalCount;
         this.totalPages = Math.ceil(this.totalRows / this.pageSize);
         this.currentPage = 1;
       },
@@ -72,7 +72,7 @@ export class GroupOfCompanyComponent implements OnInit {
 
   saveGroup(): void {
     if (this.companyGroupForm.valid) {
-      const payload = {
+      const payload: GroupOfCompanyAddRequest = {
         company_Name: this.companyGroupForm.get('companyName')?.value,
         primary_Currency: this.companyGroupForm.get('primaryCurrency')?.value,
         secondary_Currency: this.companyGroupForm.get('secondaryCurrency')?.value || undefined,
@@ -81,7 +81,7 @@ export class GroupOfCompanyComponent implements OnInit {
       this.organizationService.addGroupOfCompany(payload).subscribe({
         next: () => {
           this.companyGroupForm.reset();
-          this.loadGroups(); // Refresh the table
+          this.loadGroups();
         },
         error: (error) => {
           console.error('Failed to add group:', error);
@@ -91,7 +91,7 @@ export class GroupOfCompanyComponent implements OnInit {
   }
 
   viewDateTrack(): void {
-    console.log('View Date Track clicked'); // Implement date track logic
+    console.log('View Date Track clicked');
   }
 
   cancel(): void {
@@ -101,12 +101,14 @@ export class GroupOfCompanyComponent implements OnInit {
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.loadGroups();
     }
   }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.loadGroups();
     }
   }
 
@@ -116,9 +118,10 @@ export class GroupOfCompanyComponent implements OnInit {
     } else if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
+    this.loadGroups();
   }
 
-  get paginatedGroups(): GroupOfCompanyListItem[] {
+  get paginatedGroups(): GroupOfCompany[] {
     const start = (this.currentPage - 1) * this.pageSize;
     return this.existingGroups.slice(start, start + this.pageSize);
   }

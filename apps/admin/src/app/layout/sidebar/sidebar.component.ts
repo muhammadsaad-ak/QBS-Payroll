@@ -85,4 +85,13 @@ export class SidebarComponent implements OnDestroy {
     }
     return false;
   }
+
+  getParentIcon(): string {
+    if (this.currentView === 'companySetup') {
+      return 'assets/house-active.svg';
+    } else if (this.currentView === 'position') {
+      return 'assets/people-active.svg';
+    }
+    return 'assets/main-logo-collapse.svg'; // Default logo for main view
+  }
 }

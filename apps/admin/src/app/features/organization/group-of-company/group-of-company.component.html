@@ -103,7 +103,7 @@
     <thead class="bg-teal-700 border-2">
       <tr>
         <th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
-          Company Code
+          Company ID
         </th>
         <th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
           Company Name
@@ -119,16 +119,16 @@
     <tbody class="bg-white divide-y divide-gray-200">
       <tr *ngFor="let group of paginatedGroups">
         <td class="px-4 py-3 whitespace-nowrap text-sm text-black">
-          {{ group.code }}
+          {{ group.id }}
         </td>
         <td class="px-4 py-3 whitespace-nowrap text-sm text-black">
-          {{ group.name }}
+          {{ group.company_Name }}
         </td>
         <td class="px-4 py-3 whitespace-nowrap text-sm text-black">
-          {{ group.primaryCurrency }}
+          {{ group.primary_Currency }}
         </td>
         <td class="px-4 py-3 whitespace-nowrap text-sm text-black">
-          {{ group.secondaryCurrency || '-' }}
+          {{ group.secondary_Currency || '-' }}
         </td>
       </tr>
     </tbody>

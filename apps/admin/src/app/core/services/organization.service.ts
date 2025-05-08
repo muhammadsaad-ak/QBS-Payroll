@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 import { Observable, map } from 'rxjs';
-import { GroupOfCompanyAddRequest, GroupOfCompanyResponse, GroupOfCompanyListItem } from '../models/organization.model';
+import { GroupOfCompanyAddRequest, GroupOfCompanyResponse } from '../models/organization.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class OrganizationService {
     );
   }
 
-  listGroupOfCompanies(skip: number, count: number,): Observable<GroupOfCompanyListItem[]> {
-    return this.api.get<{ data: GroupOfCompanyListItem[] }>(
+  listGroupOfCompanies(skip: number, count: number): Observable<GroupOfCompanyResponse> {
+    return this.api.get<{ data: GroupOfCompanyResponse }>(
       'ems',
       'IGroupOfCompanyManagement',
       'ListGroupOfCompany',
