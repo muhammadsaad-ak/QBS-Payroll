@@ -17,14 +17,25 @@
         [ngClass]="isFormCollapsed ? 'opacity-0 hidden' : 'opacity-100 flex'"
       >
         <label for="active" class="mr-2 text-sm font-medium text-gray-700">Active</label>
-        <div class="flex items-center border border-gray-300 rounded-md p-1">
-          <input type="checkbox" id="active" formControlName="active" class="hidden" />
+        <div class="relative flex items-center border border-gray-300 rounded-md p-1">
+          <input
+            type="checkbox"
+            id="active"
+            formControlName="active"
+            class="hidden"
+            (change)="toggleActive()"
+          />
           <span
-            class="px-3 py-1 rounded-md transition-colors"
-            [ngClass]="gradeForm.get('active')?.value ? 'bg-teal-700 text-white' : 'text-gray-500'"
+            class="px-3 py-1 rounded-md transition-colors cursor-pointer flex items-center"
+            [ngClass]="gradeForm.get('active')?.value ? 'bg-teal-100 text-teal-800' : 'bg-gray-100 text-gray-700'"
             (click)="toggleActive()"
           >
-            {{ gradeForm.get('active')?.value ? 'Yes' : 'No' }}
+            <span class="mr-2">Active</span>
+            <span>{{ gradeForm.get('active')?.value ? 'Yes' : 'No' }}</span>
+            <span
+              class="w-2 h-2 rounded-full ml-2"
+              [ngClass]="gradeForm.get('active')?.value ? 'bg-teal-700' : 'bg-gray-400'"
+            ></span>
           </span>
         </div>
       </div>
@@ -37,29 +48,61 @@
         [ngClass]="isFormCollapsed ? 'max-h-0 opacity-0 overflow-hidden' : 'max-h-[500px] opacity-100'"
       >
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Company Name with Search -->
-          <div>
+          <!-- Company Name with Searchable Dropdown -->
+          <div class="relative">
             <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">
               Company Name
             </label>
             <div class="relative">
-              <input
-                type="text"
-                placeholder="Search Company..."
-                (input)="onSearchCompany($event)"
-                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 mb-2"
-              />
-              <select
-                id="companyName"
-                formControlName="companyName"
-                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              <div
+                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-between cursor-pointer"
+                (click)="toggleCompanyDropdown()"
               >
-                <option value="" disabled>Select Company</option>
-                <option *ngFor="let company of filteredCompanies" [value]="company.company_Name">
+                <span class="text-gray-500" *ngIf="!gradeForm.get('companyName')?.value">Select</span>
+                <span>{{ gradeForm.get('companyName')?.value || '' }}</span>
+                <svg
+                  class="w-4 h-4 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  [(ngModel)]="searchCompanyTerm"
+                  (ngModelChange)="onSearchCompany()"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="absolute inset-0 w-full p-2 border-none focus:outline-none opacity-0"
+                />
+              </div>
+              <div
+                *ngIf="isCompanyDropdownOpen"
+                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+              >
+                <div
+                  *ngFor="let company of filteredCompanies"
+                  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  (click)="selectCompany(company.company_Name)"
+                >
                   {{ company.company_Name }}
-                </option>
-              </select>
+                </div>
+                <div
+                  *ngIf="filteredCompanies.length === 0"
+                  class="px-4 py-2 text-gray-500"
+                >
+                  No companies found
+                </div>
+              </div>
             </div>
+            <!-- Hidden input to bind the form control -->
+            <input
+              type="hidden"
+              id="companyName"
+              formControlName="companyName"
+            />
           </div>
 
           <!-- Grade Area Name -->

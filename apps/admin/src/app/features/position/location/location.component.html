@@ -344,7 +344,7 @@
 >
   <h2 class="text-lg font-semibold mb-4">Existing Locations</h2>
   <!-- Table Container -->
-  <div class="w-full max-h-[400px] max-w-auto overflow-x-auto overflow-y-auto">
+  <div class="w-full max-h-[400px] max-w-screen overflow-x-auto overflow-y-auto">
     <table class="border-collapse">
       <thead>
         <tr class="bg-teal-700 text-white">
@@ -369,7 +369,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let location of paginatedLocations" class="border-b">
-          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.locationId }}</td>
+          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.id }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.locationName }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.shortCode || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.companyName }}</td>
@@ -378,14 +378,14 @@
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.contactNumber || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.alternateContactNumber || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.timeZone || '-' }}</td>
-          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.addressLine1 || '-' }}</td>
-          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.addressLine2 || '-' }}</td>
+          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.address1 || '-' }}</td>
+          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.address2 || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.postalCode || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.city || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.state || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.country || '-' }}</td>
           <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.effectiveDate }}</td>
-          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.active ? 'Yes' : 'No' }}</td>
+          <td class="p-3 whitespace-nowrap min-w-[150px]">{{ location.status }}</td>
         </tr>
       </tbody>
     </table>
