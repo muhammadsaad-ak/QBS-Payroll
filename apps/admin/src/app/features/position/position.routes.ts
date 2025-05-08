@@ -10,6 +10,8 @@ import { EmploymentGroupComponent } from './employment-group/employment-group.co
 import { GradeAssignmentComponent } from './grade-assignment/grade-assignment.component';
 import { JobComponent } from './job/job.component';
 import { FunctionComponent } from './function/function.component';
+import { PraRoleComponent } from './pra-role/pra-role.component';
+import { PositionComponent } from './position/position.component';
 
 export const POSITION_ROUTES: Routes = [
   {
@@ -26,7 +28,9 @@ export const POSITION_ROUTES: Routes = [
       { path: 'employment-group', component: EmploymentGroupComponent },
       { path: 'grade-assignment', component: GradeAssignmentComponent },
       { path: 'job', component: JobComponent },
-      { path: 'function', component: FunctionComponent }
+      { path: 'function', component: FunctionComponent },
+      { path: 'pra-role', component: PraRoleComponent },
+      { path: 'position', component: PositionComponent }
     ]
   }
 ];

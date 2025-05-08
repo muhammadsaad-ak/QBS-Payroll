@@ -1,6 +1,6 @@
 <div class="p-6">
     <!-- Breadcrumb -->
-    <h1 class="text-2xl font-semibold text-gray-800">Postion Status</h1>
+    <h1 class="text-2xl font-semibold text-gray-800">Position Status</h1>
     <div class="flex items-center text-sm text-gray-500 mb-4">
       <a routerLink="/admin/position-statuses" class="hover:underline">Position Statuses</a>
       <span class="mx-2">/</span>
@@ -48,31 +48,41 @@
               />
             </div>
   
-            <!-- Position Status Code -->
-            <div>
-              <label for="positionStatusCode" class="block text-sm font-medium text-gray-700 mb-1">Position Status Code</label>
-              <input
-                type="text"
-                id="positionStatusCode"
-                formControlName="positionStatusCode"
-                placeholder="Optional"
-                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
-              />
-            </div>
-  
             <!-- Status -->
             <div>
               <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
-                id="status"
-                formControlName="status"
-                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
+              id="status"
+              formControlName="status"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
               >
-                <option value="" disabled>Select Status</option>
-                <option value="Open">Open</option>
-                <option value="Closed">Closed</option>
-              </select>
+              <option value="" disabled>Select Status</option>
+              <option value="Open">Open</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <!-- Effective Date -->
+          <div>
+            <label for="effectiveDate" class="block text-sm font-medium text-gray-700 mb-1">Effective Date</label>
+            <div class="relative">
+              <input
+                type="text"
+                id="effectiveDate"
+                formControlName="effectiveDate"
+                placeholder="Select Date"
+                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
+              />
+              <svg
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
             </div>
+          </div>
   
             <!-- Description -->
             <div class="md:col-span-4">
@@ -84,41 +94,6 @@
                 class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
                 rows="3"
               ></textarea>
-            </div>
-  
-            <!-- Effective Date -->
-            <div>
-              <label for="effectiveDate" class="block text-sm font-medium text-gray-700 mb-1">Effective Date</label>
-              <div class="relative">
-                <input
-                  type="text"
-                  id="effectiveDate"
-                  formControlName="effectiveDate"
-                  placeholder="Select Date"
-                  class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-600"
-                />
-                <svg
-                  class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-              </div>
-            </div>
-  
-            <!-- Is Default and Active Checkboxes -->
-            <div class="md:col-span-4 flex space-x-4 mt-2">
-              <div class="flex items-center">
-                <input type="checkbox" id="isDefault" formControlName="isDefault" class="mr-2" />
-                <label for="isDefault" class="text-sm font-medium text-gray-700">Is Default</label>
-              </div>
-              <div class="flex items-center">
-                <input type="checkbox" id="active" formControlName="active" class="mr-2" />
-                <label for="active" class="text-sm font-medium text-gray-700">Active</label>
-              </div>
             </div>
           </div>
         </div>
@@ -174,7 +149,6 @@
             <tr class="bg-teal-700 text-white">
               <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Company Name</th>
               <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Position Status Name</th>
-              <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Position Status Code</th>
               <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Status</th>
               <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Description</th>
               <th class="p-3 text-left whitespace-nowrap min-w-[150px]">Effective From</th>
@@ -186,7 +160,6 @@
             <tr *ngFor="let positionStatus of paginatedPositionStatuses" class="border-b">
               <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.companyName }}</td>
               <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.positionStatusName }}</td>
-              <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.positionStatusCode || '-' }}</td>
               <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.status }}</td>
               <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.description || '(optional)' }}</td>
               <td class="p-3 whitespace-nowrap min-w-[150px]">{{ positionStatus.effectiveDate }}</td>

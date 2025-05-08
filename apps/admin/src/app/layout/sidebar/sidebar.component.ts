@@ -81,6 +81,8 @@ export class SidebarComponent implements OnDestroy {
         '/grade-assignment',
         '/job',
         '/function',
+        '/pra-role',
+        '/position',
       ];
       return position.some(route => this.router.url.includes(route));
     }
