@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { ToastService } from '@portal/shared/components/services/toast.service';
 
 @Component({
   standalone: true,
@@ -9,12 +10,11 @@ import { RouterModule, Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  title = 'shell';
+export class AppComponent {
+  title = 'QBS Payroll';
+  constructor(private toastService: ToastService) {}
 
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    this.router.navigate(['/admin']);
+  showToast() {
+    this.toastService.showInfo('Toast from Shell!');
   }
 }

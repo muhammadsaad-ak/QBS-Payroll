@@ -1,13 +1,9 @@
 <div class="flex h-screen overflow-hidden font-sans">
   <div class="relative hidden w-3/5 lg:block">
-    <img
-      class="absolute inset-0 object-cover w-full h-full"
-      src="assets/login-main-banner.png"
-      alt="Office background"
-    />
+    <img class="absolute inset-0 object-cover w-full h-full" src="assets/login-main-banner.png"
+      alt="Office background" />
     <div
-      class="absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-b from-black/30 via-transparent to-black/50"
-    >
+      class="absolute inset-0 flex flex-col justify-between p-8 bg-gradient-to-b from-black/30 via-transparent to-black/50">
       <div>
         <img src="assets/QBS-logo.png" alt="QBS Logo" class="h-[61px]" />
       </div>
@@ -20,104 +16,70 @@
     <div class="absolute bottom-0 left-0 w-full h-1 bg-orange-500"></div>
   </div>
 
-   
 
-  <div
-    class="relative flex flex-col justify-center flex-1 px-4 py-12 bg-white sm:px-6 lg:2/5 lg:px-20 xl:px-24"
-  >
-  <div class="absolute top-0 right-0 w-[278px] h-[267px] hidden lg:block overflow-hidden -z-0">
-    <div class="absolute bottom-0 left-0 w-[550px] h-[550px] bg-teal-100 rounded-full"></div>
-</div>
+
+  <div class="relative flex flex-col justify-center flex-1 px-4 py-12 bg-white sm:px-6 lg:2/5 lg:px-20 xl:px-24">
+    <div class="absolute top-0 right-0 w-[278px] h-[267px] hidden lg:block overflow-hidden -z-0">
+      <div class="absolute bottom-0 left-0 w-[550px] h-[550px] bg-teal-100 rounded-full"></div>
+    </div>
     <div class="w-full max-w-sm mx-auto lg:w-96">
       <div>
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">
+        <h2 class="text-h1 font-primary font-semibold text-black">
           Login
         </h2>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class="mt-2 text-p font-normal font-secondary text-white-smoke">
           Fill the below information to login
         </p>
       </div>
 
       <div class="mt-8 space-y-6">
         <div>
-          <label
-            for="emailInput"
-            class="block text-sm font-medium text-gray-700"
-          >
+          <label for="emailInput" class="block text-p font-medium font-primary text-black">
             Email Address
           </label>
           <div class="mt-1">
-            <input
-              id="emailInput"
-              name="email"
-              type="email"
-              autocomplete="email"
-              required
-              placeholder="email address"
-              class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
-            />
+            <input id="emailInput" name="email" type="email" autocomplete="email" required placeholder="email address"
+              [(ngModel)]="email"
+              class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm" />
           </div>
         </div>
 
         <div>
-          <label
-            for="passwordInput"
-            class="block text-sm font-medium text-gray-700"
-          >
+          <label for="passwordInput" class="block text-p font-medium font-primary text-black">
             Password
           </label>
           <div class="relative mt-1">
-            <input
-              id="passwordInput"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              required
-              placeholder="password"
-              class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
-            />
+            <input id="passwordInput" name="password" type="password" autocomplete="current-password" required
+              placeholder="password" [(ngModel)]="password"
+              class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm" />
           </div>
         </div>
 
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
-            />
-            <label for="remember-me" class="block ml-2 text-sm text-gray-900"
-              >Remember me</label
-            >
+            <input id="remember-me" name="remember-me" type="checkbox"
+              class="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500" />
+            <label for="remember-me" class="block ml-2 text-sm text-gray-900">Remember me</label>
           </div>
 
           <div class="text-sm">
-            <a
-              routerLink="/admin/forgot-password"
-              class="font-medium text-teal-600 hover:text-teal-500 hover:underline"
-            >
+            <a routerLink="/admin/forgot-password"
+              class="font-medium text-teal-600 hover:text-teal-500 hover:underline">
               Forgot Password?
             </a>
           </div>
         </div>
 
         <div>
-          <button
-            type="button"
-            (click)="login()"
-            class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
-          >
+          <button type="button" (click)="login()"
+            class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-teal-600 border border-transparent rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
             Login
           </button>
         </div>
 
         <div class="text-sm text-center text-gray-600">
           Doesn't have an account?
-          <a
-            href="#"
-            class="font-medium text-teal-600 hover:text-teal-500 hover:underline"
-          >
+          <a href="#" class="font-medium text-teal-600 hover:text-teal-500 hover:underline">
             Contact Us
           </a>
         </div>

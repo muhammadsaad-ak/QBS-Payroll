@@ -26,7 +26,6 @@ export class SidebarComponent implements OnDestroy {
       }
     });
 
-    // Subscribe to the sidebar service to get the collapsed state
     this.sidebarService.isCollapsed$.subscribe(isCollapsed => {
       this.isCollapsed = isCollapsed;
     });
@@ -87,5 +86,14 @@ export class SidebarComponent implements OnDestroy {
       return position.some(route => this.router.url.includes(route));
     }
     return false;
+  }
+
+  getParentIcon(): string {
+    if (this.currentView === 'companySetup') {
+      return 'assets/house-active.svg';
+    } else if (this.currentView === 'position') {
+      return 'assets/people-active.svg';
+    }
+    return 'assets/main-logo-collapse.svg'; // Default logo for main view
   }
 }

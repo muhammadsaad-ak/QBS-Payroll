@@ -1,5 +1,4 @@
 <div class="">
-
   <!-- Main Content -->
   <div class="flex space-x-6">
     <!-- Current Structure (Hierarchy) -->
@@ -59,10 +58,6 @@
             <span *ngIf="companyForm.get('companyName')?.touched && companyForm.get('companyName')?.invalid" class="text-red-500 text-xs">Company Name is required</span>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700">Type of Company</label>
-            <input type="text" formControlName="typeOfCompany" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-          </div>
-          <div>
             <label class="block text-sm font-medium text-gray-700">Primary Currency</label>
             <select formControlName="primaryCurrency" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
               <option value="PKR">PKR</option>
@@ -85,13 +80,19 @@
               </svg>
             </div>
           </div>
-          <div class="flex items-center">
-            <label class="block text-sm font-medium text-gray-700 mr-4">Parent Company</label>
-            <button type="button" (click)="companyForm.get('parentCompany')?.setValue(!companyForm.get('parentCompany')?.value)" class="relative inline-flex items-center h-6 rounded-full w-11" [ngClass]="companyForm.get('parentCompany')?.value ? 'bg-teal-500' : 'bg-gray-300'">
-              <span class="absolute left-1 text-white text-xs" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-100' : 'opacity-0'">YES</span>
-              <span class="absolute right-1 text-white text-xs" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-0' : 'opacity-100'">NO</span>
-              <span class="inline-block w-4 h-4 transform bg-white rounded-full" [ngClass]="companyForm.get('parentCompany')?.value ? 'translate-x-6' : 'translate-x-1'"></span>
-            </button>
+          <div>
+            <div class="flex items-center space-x-2">
+              <label class="block text-sm font-medium text-gray-700">Parent Company</label>
+              <button type="button" (click)="companyForm.get('parentCompany')?.setValue(!companyForm.get('parentCompany')?.value)" class="relative inline-flex items-center h-4 rounded-full w-11 p-1" [ngClass]="companyForm.get('parentCompany')?.value ? 'bg-primary' : 'bg-gray-300'">
+                <span class="absolute left-1 text-white text-[10px]" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-100' : 'opacity-0'">YES</span>
+                <span class="absolute right-1 text-white text-xs" [ngClass]="companyForm.get('parentCompany')?.value ? 'opacity-0' : 'opacity-100'">NO</span>
+                <span class="inline-block w-4 h-4 transform bg-white rounded-full" [ngClass]="companyForm.get('parentCompany')?.value ? 'translate-x-6' : 'translate-x-1'"></span>
+              </button>
+            </div>
+            <select formControlName="parentCompanySelection" class="mt-1 block w-full border border-gray-300 rounded-md p-2" [disabled]="!companyForm.get('parentCompany')?.value" [ngClass]="{'bg-gray-100': !companyForm.get('parentCompany')?.value}">
+              <option value="" disabled>Select Parent Company</option>
+              <option *ngFor="let company of getAvailableParents()" [value]="company.name">{{ company.name }}</option>
+            </select>
           </div>
         </div>
 
