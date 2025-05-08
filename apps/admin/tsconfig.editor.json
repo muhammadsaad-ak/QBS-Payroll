@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts", "module-federation.config.ts"],
+  "include": ["src/**/*.ts", "module-federation.config.ts", "../../libs/shared/src/lib/components/services/toast.service.ts"],
   "compilerOptions": {},
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

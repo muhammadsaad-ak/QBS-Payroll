@@ -8,18 +8,24 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { app } from '../server';
+import { ToastService } from '@portal/shared/components/services/toast.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes),   
+    provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideToastr({
-      timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
+      enableHtml: true,
+      timeOut: 5000,
+      closeButton: true,
     }),
+    ToastService
   ],
 };

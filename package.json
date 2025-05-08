@@ -6,7 +6,7 @@
     "serve:shell": "nx serve shell",
     "serve:admin": "nx serve admin",
     "serve:employee": "nx serve employee",
-    "start:all": "nx run-many --target=serve --projects=shell,admin --parallel",
+    "start:all": "nx run-many --target=serve --projects=shell,admin",
     "build:all": "nx run-many --target=build --projects=shell,admin --parallel --configuration=production",
     "build:ssr": "nx run-many --target=server --projects=shell,admin --parallel --configuration=production",
     "serve:ssr": "nx run-many --target=serve-ssr --projects=shell,admin --parallel --configuration=production",

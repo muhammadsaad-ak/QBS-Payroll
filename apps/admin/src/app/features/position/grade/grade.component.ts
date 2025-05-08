@@ -2,11 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PositionService } from '../../../core/services/position.service';
-import { OrganizationService } from '../../../core/services/organization.service';
-import { Grade, GradeResponse } from '../../../core/models/grade.model';
-import { GroupOfCompanyResponse } from '../../../core/models/organization.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grade',
@@ -16,39 +11,36 @@ import { Subscription } from 'rxjs';
 })
 export class GradeComponent implements OnInit, OnDestroy {
   gradeForm: FormGroup;
-  grades: Grade[] = [];
-  companies: string[] = [];
+  grades: any[] = [];
   isFormCollapsed = false;
 
   // Pagination properties
   currentPage = 1;
   rowsPerPage = 10;
   totalPages = 1;
-  paginatedGrades: Grade[] = [];
+  paginatedGrades: any[] = [];
 
-  private subscriptions: Subscription = new Subscription();
-
-  constructor(
-    private fb: FormBuilder,
-    private positionService: PositionService,
-    private organizationService: OrganizationService
-  ) {
+  constructor(private fb: FormBuilder) {
     this.gradeForm = this.fb.group({
-      companyId: ['', Validators.required],
+      companyName: ['', Validators.required],
       gradeAreaName: ['', Validators.required],
       effectiveDate: ['', Validators.required],
-      status: [true]
+      active: [true]
     });
   }
 
   ngOnInit() {
+    // Reset state on component initialization
     this.isFormCollapsed = false;
-    this.loadCompanies();
-    this.loadGrades();
+    this.grades = [];
+    this.currentPage = 1;
+    this.paginatedGrades = [];
+    this.totalPages = 1;
+    this.resetForm();
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    // Ensure animations can complete by resetting state
     this.isFormCollapsed = false;
   }
 
@@ -57,38 +49,24 @@ export class GradeComponent implements OnInit, OnDestroy {
   }
 
   toggleActive() {
-    const statusControl = this.gradeForm.get('status');
-    statusControl?.setValue(!statusControl?.value);
+    const activeControl = this.gradeForm.get('active');
+    activeControl?.setValue(!activeControl?.value);
   }
 
   onSubmit() {
     if (this.gradeForm.valid) {
-      const gradeData: Grade = {
-        id: '', // API will generate this
-        companyId: this.gradeForm.get('companyId')?.value,
-        effectiveDate: this.gradeForm.get('effectiveDate')?.value,
-        gradeAreaName: this.gradeForm.get('gradeAreaName')?.value,
-        status: this.gradeForm.get('status')?.value
-      };
-      this.subscriptions.add(
-        this.positionService.addGrade(gradeData).subscribe({
-          next: (addedGrade) => {
-            this.grades.push(addedGrade);
-            this.updatePagination();
-            this.resetForm();
-          },
-          error: (err) => console.error('Error adding grade:', err)
-        })
-      );
+      this.grades.push(this.gradeForm.value);
+      this.updatePagination();
+      this.resetForm();
     }
   }
 
   resetForm() {
     this.gradeForm.reset({
-      companyId: '',
+      companyName: '',
       gradeAreaName: '',
       effectiveDate: '',
-      status: true
+      active: true
     });
   }
 
@@ -104,29 +82,5 @@ export class GradeComponent implements OnInit, OnDestroy {
   changePage(delta: number) {
     this.currentPage += delta;
     this.updatePagination();
-  }
-
-  private loadCompanies() {
-    this.subscriptions.add(
-      this.organizationService.listGroupOfCompanies(0, 100).subscribe({
-        next: (response: GroupOfCompanyResponse) => {
-          this.companies = response.items.map(company => company.company_Name); // Adjust based on actual response structure
-        },
-        error: (err) => console.error('Error loading companies:', err)
-      })
-    );
-  }
-
-  private loadGrades() {
-    this.subscriptions.add(
-      this.positionService.listGrades((this.currentPage - 1) * this.rowsPerPage, this.rowsPerPage).subscribe({
-        next: (response: GradeResponse) => {
-          this.grades = response.data;
-          this.totalPages = Math.ceil(response.totalCount / this.rowsPerPage);
-          this.updatePagination();
-        },
-        error: (err) => console.error('Error loading grades:', err)
-      })
-    );
   }
 }
