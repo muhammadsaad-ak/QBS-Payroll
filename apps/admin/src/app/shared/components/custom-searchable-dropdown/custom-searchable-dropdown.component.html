@@ -1,0 +1,26 @@
+<div class="custom-dropdown" (clickOutside)="onClickOutside($event)">
+    <div #dropdownTrigger class="dropdown-trigger" (click)="toggleDropdown()">
+        <div class="selected-value">
+            <div>
+                <span class="placeholder" *ngIf="!selectedValue">{{ placeholder }}</span>
+                <span>{{ selectedValue || '' }}</span>
+            </div>
+            <div>
+                <svg class="arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </div>
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search..."
+            class="search-input" />
+    </div>
+    <div class="dropdown-list" *ngIf="isOpen">
+        <div *ngFor="let option of filteredOptions" class="option" (click)="selectOption(option.value)">
+            {{ option.label }}
+        </div>
+        <div class="no-results" *ngIf="filteredOptions.length === 0">
+            No options found
+        </div>
+    </div>
+</div>

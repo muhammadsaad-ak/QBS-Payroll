@@ -9,11 +9,19 @@ import { GroupOfCompany, GroupOfCompanyResponse } from '../../../core/models/org
 import { Pagination } from '../../../core/models/pagination.model';
 import { PaginationService } from '../../../core/services/pagination.service';
 import { Subscription } from 'rxjs';
+import { CustomSearchableDropdownComponent } from '../../../shared/components/custom-searchable-dropdown/custom-searchable-dropdown.component';
+import { DropdownOption } from '../../../core/models/dropdown-option.model';
 
 @Component({
   selector: 'app-grade',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    CustomSearchableDropdownComponent
+  ],
   templateUrl: './grade.component.html',
 })
 export class GradeComponent implements OnInit, OnDestroy {
@@ -63,18 +71,18 @@ export class GradeComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.gradeService.listGrades(skip, count).subscribe({
         next: (response: GradeResponse) => {
-          this.grades = response.data || [];
+          console.log("🚀 ~ GradeComponent ~ this.gradeService.listGrades ~ response:", response)
+          this.grades = response.data.items || [];
           this.pagination = this.paginationService.updatePagination(
             this.grades,
             this.currentPage,
             this.rowsPerPage,
-            response.totalCount
+            response.data.totalCount
           );
           this.updatePaginatedGrades();
         },
         error: (err) => {
           console.error('Error loading grades:', err);
-          // this.toastService.showError('Failed to load grades. Please try again.');
         }
       })
     );
@@ -89,7 +97,6 @@ export class GradeComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Error loading companies:', err);
-          // this.toastService.showError('Failed to load companies. Please try again.');
         }
       })
     );
@@ -97,9 +104,6 @@ export class GradeComponent implements OnInit, OnDestroy {
 
   onSearchCompany() {
     this.isCompanyDropdownOpen = true;
-    this.filteredCompanies = this.companies.filter(company =>
-      company.company_Name.toLowerCase().includes(this.searchCompanyTerm.toLowerCase())
-    );
   }
 
   toggleCompanyDropdown() {
@@ -132,7 +136,6 @@ export class GradeComponent implements OnInit, OnDestroy {
       const companyId = this.getCompanyId(this.gradeForm.get('companyName')?.value);
       if (!companyId) {
         console.error('Invalid company selected');
-        // this.toastService.showError('Invalid company selected. Please select a valid company.');
         return;
       }
 
@@ -155,11 +158,9 @@ export class GradeComponent implements OnInit, OnDestroy {
             );
             this.updatePaginatedGrades();
             this.resetForm();
-            // this.toastService.showSuccess('Grade added successfully!');
           },
           error: (err) => {
             console.error('Error adding grade:', err);
-            // this.toastService.showError('Failed to add grade. Please try again.');
           }
         })
       );
@@ -203,5 +204,12 @@ export class GradeComponent implements OnInit, OnDestroy {
   private getCompanyId(companyName: string): string {
     const company = this.companies.find(c => c.company_Name === companyName);
     return company ? company.id : '';
+  }
+
+  getDropdownOptions(): DropdownOption[] {
+    return this.companies.map(company => ({
+      value: company.company_Name,
+      label: company.company_Name
+    }));
   }
 }

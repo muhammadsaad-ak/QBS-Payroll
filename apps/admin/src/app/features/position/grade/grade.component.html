@@ -11,12 +11,12 @@
   <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
     <!-- Heading and Active Toggle -->
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-semibold">Grade Details</h2>
+      <h2 class="text-h5 font-primary font-semibold">Grade Details</h2>
       <div
         class="transition-opacity duration-300 ease-in-out delay-100 flex items-center space-x-2"
         [ngClass]="isFormCollapsed ? 'opacity-0 hidden' : 'opacity-100 flex'"
       >
-        <label for="active" class="mr-2 text-sm font-medium text-gray-700">Active</label>
+        <label for="active" class="mr-2 text-p font-medium font-primary">Active</label>
         <div class="relative flex items-center border border-gray-300 rounded-md p-1">
           <input
             type="checkbox"
@@ -48,72 +48,28 @@
         [ngClass]="isFormCollapsed ? 'max-h-0 opacity-0 overflow-hidden' : 'max-h-[500px] opacity-100'"
       >
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Company Name with Searchable Dropdown -->
+          <!-- Company Name with Custom Searchable Dropdown -->
           <div class="relative">
-            <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">
+            <label for="companyName" class="block text-p font-medium font-primary mb-1">
               Company Name
             </label>
-            <div class="relative">
-              <div
-                class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-between cursor-pointer"
-                (click)="toggleCompanyDropdown()"
-              >
-                <span class="text-gray-500" *ngIf="!gradeForm.get('companyName')?.value">Select</span>
-                <span>{{ gradeForm.get('companyName')?.value || '' }}</span>
-                <svg
-                  class="w-4 h-4 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  [(ngModel)]="searchCompanyTerm"
-                  (ngModelChange)="onSearchCompany()"
-                  [ngModelOptions]="{ standalone: true }"
-                  class="absolute inset-0 w-full p-2 border-none focus:outline-none opacity-0"
-                />
-              </div>
-              <div
-                *ngIf="isCompanyDropdownOpen"
-                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
-              >
-                <div
-                  *ngFor="let company of filteredCompanies"
-                  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  (click)="selectCompany(company.company_Name)"
-                >
-                  {{ company.company_Name }}
-                </div>
-                <div
-                  *ngIf="filteredCompanies.length === 0"
-                  class="px-4 py-2 text-gray-500"
-                >
-                  No companies found
-                </div>
-              </div>
-            </div>
-            <!-- Hidden input to bind the form control -->
-            <input
-              type="hidden"
-              id="companyName"
-              formControlName="companyName"
-            />
+            <app-custom-searchable-dropdown
+              [options]="getDropdownOptions()"
+              [selectedValue]="gradeForm.get('companyName')?.value || ''"
+              (valueChanged)="gradeForm.get('companyName')?.setValue($event)"
+              placeholder="Select"
+            ></app-custom-searchable-dropdown>
           </div>
 
           <!-- Grade Area Name -->
           <div>
-            <label for="gradeAreaName" class="block text-sm font-medium text-gray-700 mb-1">
+            <label for="gradeAreaName" class="block text-p font-medium font-primary mb-1">
               Grade Area Name
             </label>
             <input
               type="text"
               id="gradeAreaName"
-              formControlName="gradeAreaName"
+              formControlName="gradeName"
               placeholder="Grade Area Name"
               class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
@@ -121,7 +77,7 @@
 
           <!-- Effective Date -->
           <div>
-            <label for="effectiveDate" class="block text-sm font-medium text-gray-700 mb-1">
+            <label for="effectiveDate" class="block text-p font-medium font-primary mb-1">
               Effective Date
             </label>
             <div class="relative">

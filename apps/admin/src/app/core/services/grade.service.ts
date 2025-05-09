@@ -21,7 +21,7 @@ export class GradeService {
   }
 
   listGrades(skip: number, count: number): Observable<GradeResponse> {
-    return this.api.get<{ data: GradeResponse }>(
+    return this.api.get<GradeResponse>(
       'ems',
       'Grade',
       'ListGrade',
@@ -33,8 +33,15 @@ export class GradeService {
       }
     ).pipe(
       map(res => ({
-        data: res.data.data,
-        totalCount: res.data.totalCount || res.data.data.length // Fallback if totalCount is missing
+        isApiHandled: res.isApiHandled,
+        isRequestSuccess: res.isRequestSuccess,
+        statusCode: res.statusCode,
+        message: res.message,
+        data: {
+          totalCount: res.data.totalCount,
+          items: res.data.items
+        },
+        exception: res.exception
       }))
     );
   }
